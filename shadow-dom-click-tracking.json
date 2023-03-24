@@ -1,0 +1,149 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2023-03-24 06:03:21",
+    "containerVersion": {
+        "path": "accounts/6077897557/containers/105328003/versions/0",
+        "accountId": "6077897557",
+        "containerId": "105328003",
+        "containerVersionId": "0",
+        "container": {
+            "path": "accounts/6077897557/containers/105328003",
+            "accountId": "6077897557",
+            "containerId": "105328003",
+            "name": "hurdlers.kr",
+            "publicId": "GTM-MH2CHXW",
+            "usageContext": [
+                "WEB"
+            ],
+            "fingerprint": "1679557802397",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6077897557/containers/105328003/workspaces?apiLink=container",
+            "features": {
+                "supportUserPermissions": true,
+                "supportEnvironments": true,
+                "supportWorkspaces": true,
+                "supportGtagConfigs": false,
+                "supportBuiltInVariables": true,
+                "supportClients": false,
+                "supportFolders": true,
+                "supportTags": true,
+                "supportTemplates": true,
+                "supportTriggers": true,
+                "supportVariables": true,
+                "supportVersions": true,
+                "supportZones": true
+            },
+            "tagIds": [
+                "GTM-MH2CHXW"
+            ]
+        },
+        "tag": [
+            {
+                "accountId": "6077897557",
+                "containerId": "105328003",
+                "tagId": "4",
+                "name": "HURDLERS - [맞춤 HTML] Shadow DOM 클릭 추적",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n  (function () {\n    // 디버그모드 설정\n    var DEBUG_MODE = false;\n\n    // 맞춤 이벤트 이름\n    var EVENT_NAME = 'shadow_dom_click';\n\n    // 특정 Shadow DOM Element만 추적하고 싶은 경우 css selector를 포함하여 입력\n    // ex. #ch-plugin, .some_class\n    var elementToObserveSelector = '';\n\n    function logger(k,v) {\n      if(DEBUG_MODE) {\n        console.log(k, v);\n      }\n    }\n\n    function documentClickHandler(event) {\n      var path = event.composedPath();\n\n      for (var i = 0; i < path.length; i++) {\n        var element = path[i];\n        if (isShadowDOM(element)) {\n          setDataLayer(element);\n          break;\n        }\n      }\n    }\n\n    function setDataLayer(element) {\n      window.dataLayer.push({\n        'event' : EVENT_NAME\n      });\n      logger('Completed dataLayer pushed : ', window.dataLayer);\n      logger('Clicked Shadow DOM Element : ', element);\n    }\n\n    function isShadowDOM(element) {\n      return element instanceof ShadowRoot;\n    }\n\n    function onElementLoaded(element) {\n      var observer = new MutationObserver(function (mutations) {\n        mutations.forEach(function (mutation) {\n          if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {\n            var addedNode = mutation.addedNodes[0];\n            setTimeout(function () {\n              if (addedNode.shadowRoot) {\n                logger('******', 'Found Shadow Root');\n                logger('******', 'Wait Completed Render For 0.3s');\n                addedNode.shadowRoot.addEventListener('click', function (e) {\n                  setDataLayer(e.target);\n                });\n              }\n            }, 300);\n          }\n        });\n      });\n\n      observer.observe(element, {\n        childList: true\n      });\n    }\n\n    function waitForElementToLoad(selector, callback, timeout) {\n      var startTime = Date.now();\n      var checkInterval = 100;\n      var checkTimeout = timeout || 3000;\n\n      function checkElement() {\n        var element = document.querySelector(selector);\n        if (element) {\n          logger('******', 'Completed Wait For Element To load');\n          callback(element);\n        } else {\n          if (Date.now() - startTime < checkTimeout) {\n            setTimeout(checkElement, checkInterval);\n          } else {\n            logger('******', 'Timeout waiting for element');\n          }\n        }\n      }\n\n      checkElement();\n    }\n\n    function init() {\n      if(!elementToObserveSelector) {\n        document.addEventListener('click', documentClickHandler);\n      } else {\n        waitForElementToLoad(elementToObserveSelector, onElementLoaded, 5000);\n      }\n    }\n\n    init();\n  })();\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1679635524838",
+                "firingTriggerId": [
+                    "3"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "6077897557",
+                "containerId": "105328003",
+                "tagId": "6",
+                "name": "HURDLERS - [이벤트전송] shadow_dom_click",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "shadow_dom_click"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementId",
+                        "value": "none"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "G-XXXXXXXX"
+                    }
+                ],
+                "fingerprint": "1679635575184",
+                "firingTriggerId": [
+                    "5"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            }
+        ],
+        "trigger": [
+            {
+                "accountId": "6077897557",
+                "containerId": "105328003",
+                "triggerId": "3",
+                "name": "HURDLERS - [DOM 사용 가능] 모든 페이지",
+                "type": "DOM_READY",
+                "fingerprint": "1679635521958"
+            },
+            {
+                "accountId": "6077897557",
+                "containerId": "105328003",
+                "triggerId": "5",
+                "name": "HURDLERS - [맞춤이벤트] shadow_dom_click",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "shadow_dom_click"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1679635547504"
+            }
+        ],
+        "fingerprint": "1679637801542",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6077897557/containers/105328003/versions/0?apiLink=version"
+    }
+}
